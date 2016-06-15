@@ -56,13 +56,17 @@ class MasterViewController: UICollectionViewController {
   @IBAction func addButtonTapped(sender: UIBarButtonItem) {
     
     let indexPath = papersDataSource.indexPathForNewRandomPaper()
-    //collectionView!.insertItemsAtIndexPaths([indexPath])
+    
+    let layout = collectionViewLayout as! PaperFlowLayout
+    layout.appearingIndexPath = indexPath
     
     UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
       
       self.collectionView!.insertItemsAtIndexPaths([indexPath])
 
-      }, completion: nil)
+        }, completion: {(finished: Bool) -> Void in
+            layout.appearingIndexPath = nil
+    })
     
   }
     // MARK: UICollectionViewDataSource
